@@ -1,52 +1,25 @@
-# \# 🔵 Java Servlet Learning
+# 🔵 Java Servlet Learning
 
-# 
+This folder contains my learning of Java Servlets for backend web development.
 
-# This folder contains my learning of Java Servlets for backend web development.
+---
 
-# 
+## 📚 Topics Covered
 
-# \---
+* Request & Response Handling
+* Servlet Lifecycle
+* Session Management
+* MVC Basics
 
-# 
+---
 
-# \## 📚 Topics Covered
+## 📁 Structure
 
-# 
+* `concepts/` → servlet fundamentals
+* `projects/` → servlet-based mini apps
 
-# \* Request \& Response Handling
+---
 
-# \* Servlet Lifecycle
+## 🎯 Goal
 
-# \* Session Management
-
-# \* MVC Basics
-
-# 
-
-# \---
-
-# 
-
-# \## 📁 Structure
-
-# 
-
-# \* `concepts/` → servlet fundamentals
-
-# \* `projects/` → servlet-based mini apps
-
-# 
-
-# \---
-
-# 
-
-# \## 🎯 Goal
-
-# 
-
-# To understand how backend web applications work using Java Servlets.
-
-
-
+To understand how backend web applications work using Java Servlets.
