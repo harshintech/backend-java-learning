@@ -1,66 +1,32 @@
-\# 🟠 JDBC Learning
-
-
+# 🟠 JDBC Learning
 
 This folder contains my learning and practice of JDBC (Java Database Connectivity).
 
+---
 
+## 📚 Topics Covered
 
-\---
+* Database Connection
+* CRUD Operations
+* Prepared Statements
+* ResultSet Handling
 
+---
 
+## 📁 Structure
 
-\## 📚 Topics Covered
+* `concepts/` → JDBC theory and examples
+* `projects/` → real-world mini projects
 
+---
 
+## 🚀 Projects
 
-\* Database Connection
+* Banking App
+* Hotel Reservation System
 
-\* CRUD Operations
+---
 
-\* Prepared Statements
-
-\* ResultSet Handling
-
-
-
-\---
-
-
-
-\## 📁 Structure
-
-
-
-\* `concepts/` → JDBC theory and examples
-
-\* `projects/` → real-world mini projects
-
-
-
-\---
-
-
-
-\## 🚀 Projects
-
-
-
-\* Banking App
-
-\* Hotel Reservation System
-
-
-
-\---
-
-
-
-\## 🎯 Goal
-
-
+## 🎯 Goal
 
 To understand how Java interacts with databases in real-world applications.
-
-
-
