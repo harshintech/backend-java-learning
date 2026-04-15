@@ -1,0 +1,74 @@
+# ===============================
+# 🚫 Compiled / Build Files
+# ===============================
+*.class
+*.jar
+*.war
+*.ear
+
+target/
+out/
+build/
+bin/
+
+# ===============================
+# 📦 Maven / Gradle
+# ===============================
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# ===============================
+# 📝 Logs
+# ===============================
+*.log
+
+# ===============================
+# 💻 IDE Files
+# ===============================
+
+## IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+## Eclipse / STS
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+## NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+## VS Code
+.vscode/
+
+# ===============================
+# 🖥 OS Files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# 🔐 Environment Files
+# ===============================
+.env
+.env.*
+
+# ===============================
+# 📁 Misc
+# ===============================
+coverage/
+node_modules/

@@ -1,0 +1,52 @@
+============================================================
+  SPRING CORE QUICK REFERENCE CHEATSHEET
+  Print this and keep it on your desk!
+============================================================
+
+CONTAINER
+---------
+ClassPathXmlApplicationContext("file.xml")     -- XML config
+AnnotationConfigApplicationContext(Config.class) -- Java config
+
+ctx.getBean("beanId")                          -- get bean by id
+ctx.getBean(MyClass.class)                     -- get bean by type
+ctx.getBean("beanId", MyClass.class)           -- type-safe by id
+
+BEAN SCOPES
+-----------
+singleton   = 1 instance shared (DEFAULT)
+prototype   = new instance every getBean()
+
+XML INJECTION
+-------------
+Constructor: <constructor-arg value="x" />
+             <constructor-arg ref="beanId" />
+Setter:      <property name="x" value="y" />
+             <property name="x" ref="beanId" />
+
+JAVA CONFIG
+-----------
+@Configuration           = class is a config
+@Bean                    = method returns a bean
+@Bean(name="myName")     = custom bean name
+@Scope("prototype")      = set scope
+@ComponentScan("pkg")    = auto-detect @Component beans
+
+IMPORTANT CLASSES
+-----------------
+ApplicationContext        = main interface
+BeanFactory               = parent of ApplicationContext
+ClassPathXmlApplicationContext
+FileSystemXmlApplicationContext
+AnnotationConfigApplicationContext
+
+SPRING ANNOTATION CHEATSHEET (upcoming)
+-----------------------------------------
+@Component    = generic bean (auto-scan)
+@Service      = service layer bean
+@Repository   = DAO/data layer bean
+@Controller   = web layer bean
+@Autowired    = auto inject dependency
+@Qualifier    = specify which bean to inject when multiple exist
+@Value        = inject literal values / properties
+

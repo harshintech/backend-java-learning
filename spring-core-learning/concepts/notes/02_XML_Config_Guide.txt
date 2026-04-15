@@ -1,0 +1,88 @@
+============================================================
+  XML CONFIGURATION GUIDE
+  File: applicationContext.xml
+============================================================
+
+NAMESPACE DECLARATION (Required at top of XML)
+-----------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- beans go here -->
+
+</beans>
+
+------------------------------------------------------------
+BEAN DEFINITION SYNTAX
+------------------------------------------------------------
+
+Basic bean:
+  <bean id="myId" class="fully.qualified.ClassName"/>
+
+id   = unique name to fetch this bean from context
+class = full package path to your class
+
+------------------------------------------------------------
+INJECTION TYPES IN XML
+------------------------------------------------------------
+
+1. CONSTRUCTOR INJECTION
+   <bean id="student1" class="com.demo.beans.Student">
+       <constructor-arg value="101"/>           <!-- primitive/String -->
+       <constructor-arg value="Harsh"/>
+       <constructor-arg ref="anotherBean"/>     <!-- reference to a bean -->
+   </bean>
+
+2. SETTER INJECTION
+   <bean id="student2" class="com.demo.beans.Student">
+       <property name="id" value="102"/>        <!-- calls setId(102) -->
+       <property name="name" value="Rahul"/>    <!-- calls setName("Rahul") -->
+       <property name="dao" ref="daoBean"/>     <!-- calls setDao(daoBean) -->
+   </bean>
+
+   NOTE: property name="id" means Spring calls setId() method.
+         Always have the setter method present!
+
+3. REFERENCE INJECTION (for object dependencies)
+   <bean id="studentDAO" class="com.demo.dao.StudentDAOImpl"/>
+
+   <bean id="studentService" class="com.demo.service.StudentServiceImpl">
+       <property name="studentDAO" ref="studentDAO"/>
+       <!-- 'ref' links to another bean's id -->
+   </bean>
+
+------------------------------------------------------------
+SCOPE IN XML
+------------------------------------------------------------
+   <bean id="myBean" class="..." scope="singleton"/>   <!-- default -->
+   <bean id="myBean" class="..." scope="prototype"/>
+
+------------------------------------------------------------
+LIFECYCLE CALLBACKS IN XML
+------------------------------------------------------------
+   <bean id="myBean" class="..."
+         init-method="init"
+         destroy-method="cleanup"/>
+
+   In your class:
+   public void init() { System.out.println("Bean created!"); }
+   public void cleanup() { System.out.println("Bean destroyed!"); }
+
+------------------------------------------------------------
+HOW TO LOAD XML CONFIG IN JAVA
+------------------------------------------------------------
+
+   ApplicationContext ctx =
+       new ClassPathXmlApplicationContext("applicationContext.xml");
+
+   MyClass obj = (MyClass) ctx.getBean("myId");
+   // OR type-safe:
+   MyClass obj = ctx.getBean("myId", MyClass.class);
+
+   // Always close to trigger destroy methods
+   ((ClassPathXmlApplicationContext) ctx).close();
+

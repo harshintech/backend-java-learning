@@ -1,0 +1,108 @@
+============================================================
+  JAVA CONFIGURATION GUIDE
+  File: AppConfig.java (replaces applicationContext.xml)
+============================================================
+
+ANNOTATIONS USED
+----------------
+@Configuration  -- Marks class as Spring config (replaces XML file)
+@Bean           -- Marks method as bean definition (replaces <bean> tag)
+@Scope          -- Sets scope (singleton/prototype/etc)
+@ComponentScan  -- Auto-scan for @Component classes (advanced)
+
+------------------------------------------------------------
+BASIC STRUCTURE
+------------------------------------------------------------
+
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public StudentDAO studentDAO() {
+        return new StudentDAOImpl();
+    }
+
+    @Bean
+    public StudentService studentService() {
+        StudentServiceImpl svc = new StudentServiceImpl();
+        svc.setStudentDAO(studentDAO()); // Spring manages this call
+        return svc;
+    }
+}
+
+------------------------------------------------------------
+@Bean NAME
+------------------------------------------------------------
+
+By default the bean name = method name.
+  @Bean
+  public StudentDAO studentDAO() { ... }
+  // Bean name = "studentDAO"
+
+Custom name:
+  @Bean(name = "myCustomName")
+  public StudentDAO studentDAO() { ... }
+
+------------------------------------------------------------
+SCOPE WITH @SCOPE
+------------------------------------------------------------
+
+@Bean
+@Scope("singleton")   // default
+public Student singletonBean() { ... }
+
+@Bean
+@Scope("prototype")   // new instance every time
+public Student prototypeBean() { ... }
+
+------------------------------------------------------------
+LOADING JAVA CONFIG IN MAIN
+------------------------------------------------------------
+
+ApplicationContext ctx =
+    new AnnotationConfigApplicationContext(AppConfig.class);
+
+StudentService svc = ctx.getBean(StudentService.class);
+// OR by name:
+Student s = ctx.getBean("student1", Student.class);
+
+((AnnotationConfigApplicationContext) ctx).close();
+
+------------------------------------------------------------
+XML vs JAVA CONFIG COMPARISON TABLE
+------------------------------------------------------------
+
+Feature             | XML Config               | Java Config
+--------------------|--------------------------|---------------------------
+Define bean         | <bean id class/>         | @Bean method
+Setter injection    | <property name ref/>     | obj.setX(otherBean())
+Constructor inject  | <constructor-arg value/> | new MyClass(args)
+Bean scope          | scope="prototype"        | @Scope("prototype")
+Load config         | ClassPathXmlApp...       | AnnotationConfigApp...
+Bean name           | id="myId"                | @Bean(name="myId")
+Lifecycle hooks     | init-method destroy-m    | @Bean(initMethod=...)
+Type safety         | No (String-based)        | Yes (compile-time)
+Refactor-friendly   | No                       | Yes
+Modern/Legacy       | Legacy (still valid)     | Modern (recommended)
+
+------------------------------------------------------------
+WHEN TO USE WHICH?
+------------------------------------------------------------
+
+Use XML if:
+  - Working on a legacy enterprise project
+  - Need to change config without recompiling
+
+Use Java Config if:
+  - Starting a new project
+  - Want type safety and IDE support
+  - Using Spring Boot (Java Config is the default)
+
+------------------------------------------------------------
+SPRING BOOT NOTE
+------------------------------------------------------------
+Spring Boot uses Java Config + auto-configuration.
+You rarely write @Bean manually in Spring Boot.
+But understanding @Configuration and @Bean is ESSENTIAL
+to understand what Spring Boot is doing behind the scenes.
+

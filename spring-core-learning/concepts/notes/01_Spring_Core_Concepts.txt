@@ -1,0 +1,120 @@
+============================================================
+  SPRING CORE - COMPLETE TUTORIAL NOTES
+  For: Harsh | Level: Final Year CS | Goal: Campus + DevSecOps
+============================================================
+
+WHAT IS SPRING?
+---------------
+Spring is a Java framework that manages your objects (beans) for you.
+Instead of you doing: StudentService s = new StudentService(new StudentDAOImpl());
+Spring does it for you -- you just ask for it.
+
+This is called IoC (Inversion of Control) + DI (Dependency Injection).
+
+------------------------------------------------------------
+CORE CONCEPTS
+------------------------------------------------------------
+
+1. IoC Container
+   - The brain of Spring.
+   - It reads your config (XML or Java) and creates/manages beans.
+   - Two main implementations:
+     a) BeanFactory       -- basic, lazy loading
+     b) ApplicationContext -- full features (preferred, loads eagerly)
+
+2. Bean
+   - Any Java object managed by Spring is called a "bean".
+   - You define beans in XML or Java config.
+   - Spring creates them, injects dependencies, and destroys them.
+
+3. Dependency Injection (DI)
+   - Spring "injects" required objects into your class.
+   - Types:
+     a) Constructor Injection  -- via constructor
+     b) Setter Injection       -- via setXxx() method
+
+4. Bean Scopes
+   - singleton  (DEFAULT): One instance for the whole app
+   - prototype  : New instance every time you call getBean()
+   - request    : One per HTTP request (web apps)
+   - session    : One per HTTP session (web apps)
+
+5. ApplicationContext Types
+   - ClassPathXmlApplicationContext   -- loads XML from classpath
+   - FileSystemXmlApplicationContext  -- loads XML from file system
+   - AnnotationConfigApplicationContext -- loads Java @Configuration
+
+------------------------------------------------------------
+XML vs JAVA CONFIG
+------------------------------------------------------------
+
+XML Config (applicationContext.xml):
+  <bean id="myBean" class="com.demo.MyClass">
+      <property name="dependency" ref="anotherBean"/>
+  </bean>
+
+Java Config (AppConfig.java):
+  @Configuration
+  public class AppConfig {
+      @Bean
+      public MyClass myBean() {
+          MyClass obj = new MyClass();
+          obj.setDependency(anotherBean());
+          return obj;
+      }
+  }
+
+Both do the exact same thing.
+XML = older style (still used in enterprise legacy projects).
+Java Config = modern style (recommended).
+
+------------------------------------------------------------
+PROJECT STRUCTURE (Both Projects)
+------------------------------------------------------------
+
+src/
+  main/
+    java/
+      com/demo/
+        beans/
+          Student.java        -- The data class (POJO)
+        dao/
+          StudentDAO.java     -- Interface
+          StudentDAOImpl.java -- Implementation
+        service/
+          StudentService.java     -- Interface
+          StudentServiceImpl.java -- Implementation (has DAO injected)
+        config/
+          AppConfig.java      -- Java config (java-config-project only)
+        MainApp.java          -- Entry point
+    resources/
+      applicationContext.xml  -- XML config (xml-config-project only)
+
+------------------------------------------------------------
+HOW TO RUN
+------------------------------------------------------------
+
+Option A: IntelliJ IDEA
+  1. Open xml-config-project OR java-config-project as Maven project
+  2. Right-click MainApp.java > Run
+
+Option B: Maven CLI
+  mvn compile
+  mvn exec:java -Dexec.mainClass="com.demo.MainApp"
+
+------------------------------------------------------------
+EXPECTED OUTPUT
+------------------------------------------------------------
+
+=== Spring XML Config Demo ===
+
+Constructor Injected: Student{id=101, name='Harsh', course='DevSecOps'}
+Setter Injected:      Student{id=102, name='Rahul', course='Full Stack'}
+[Service] Enrolling student: Harsh
+[DAO] Saving student to DB: Student{id=101, name='Harsh', course='DevSecOps'}
+[DAO] Fetching student with id: 101
+Fetched: Student{id=101, name='Harsh', course='DevSecOps'}
+
+Singleton same instance? true
+Prototype same instance? false
+
